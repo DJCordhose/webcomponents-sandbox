@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Components Sandbox</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.7.16/webcomponents.min.js"></script>
+    <script src="dist/bundle.js"></script>
+</head>
+<body>
+<my-container>
+    <p>p1</p>
+    <h1>h1</h1>
+</my-container>
+<script>
+    document.querySelectorAll('my-container')[0].addEventListener('attrChanged', function (e) {
+        console.log(e)
+    }, false);
+    document.querySelectorAll('my-container')[0].setAttribute('oma', 20);
+</script>
+</body>
+</html>
