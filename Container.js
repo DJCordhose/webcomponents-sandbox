@@ -11,10 +11,10 @@ const template = `
         Content goes here:
             <content></content>
         </div>
-        <!--<div class="container">-->
-            <!--H1 Content goes here:-->
-            <!--<content select="h1"></content>-->
-        <!--</div>-->
+        <div class="container">
+            H1 Content goes here:
+            <content select="h1"></content>
+        </div>
         <input id="remove" type="button" value="Remove">
         <input id="hide" type="button" value="Hide">
 

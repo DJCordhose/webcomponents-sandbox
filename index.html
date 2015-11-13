@@ -4,19 +4,243 @@
     <meta charset="UTF-8">
     <title>Web Components Sandbox</title>
 
+    <link rel="stylesheet" href="styles/kendo.common-bootstrap.min.css" />
+    <link rel="stylesheet" href="styles/kendo.bootstrap.min.css" />
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.7.16/webcomponents.min.js"></script>
+
+    <script src="lib/jquery-2.1.4.js"></script>
+    <script src="lib/kendo.all.min.js"></script>
+    <!--<script src="lib/kendo.webcomponents.min.js"></script>-->
+
     <script src="dist/bundle.js"></script>
 </head>
 <body>
-<my-container>
-    <p>p1</p>
-    <h1>h1</h1>
-</my-container>
+<!--<my-container>-->
+    <!--&lt;!&ndash;<p slot="body">p1</p>&ndash;&gt;-->
+    <!--&lt;!&ndash;<h1 slot="header">h1</h1>&ndash;&gt;-->
+    <!--<p>p1</p>-->
+    <!--<h1>h1</h1>-->
+<!--</my-container>-->
+<!--<script>-->
+<!--document.querySelectorAll('my-container')[0].addEventListener('attrChanged', function (e) {-->
+<!--console.log(e)-->
+<!--}, false);-->
+<!--document.querySelectorAll('my-container')[0].setAttribute('oma', 20);-->
+<!--</script>-->
+<kendo-datepicker value="09/16/2015"></kendo-datepicker>
+<kendo-dropdownlist dataSource="['Black', 'Orange', 'Grey']"></kendo-dropdownlist>
 <script>
-    document.querySelectorAll('my-container')[0].addEventListener('attrChanged', function (e) {
-        console.log(e)
-    }, false);
-    document.querySelectorAll('my-container')[0].setAttribute('oma', 20);
+    var dataSource = new kendo.data.DataSource({
+        data:['Red', 'Green', 'Blue']
+    });
+    var color = document.querySelector("kendo-dropdownlist");
+    color.setDataSource(dataSource);
 </script>
+<kendo-numerictextbox value="42"></kendo-numerictextbox>
+<script>
+    var numeric = document.querySelector("kendo-numerictextbox");
+    numeric.bind("change", function() {
+        alert(this.value());
+    });
+</script>
+<!--http://docs.telerik.com/kendo-ui/web/grid/walkthrough-->
+<div style="border: 1px solid red">
+    <h1>Full</h1>
+<table id="grid">
+    <colgroup>
+        <col style="width:100px" />
+        <col style="width:200px" />
+        <col />
+    </colgroup>
+    <thead>
+    <tr>
+        <th data-field="firstName">First Name</th>
+        <th data-field="lastName">Last Name</th>
+        <th data-field="email" data-template="<a href='mailto:#= email #'>#= email #</a>">Email</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Nancy</td>
+        <td>Davolio</td>
+        <td>email@domain.com</td>
+    </tr>
+    </tbody>
+</table>
+</div>
+<div style="border: 1px solid blue; width: 400px">
+    <h1>Empty</h1>
+    <div id="empty-grid"></div>
+    <a href="#" class="k-button" id="save">Save State</a>
+    <a href="#" class="k-button" id="load">Load State</a>
+</div>
+<script>
+    var people = [ { firstName: "John",
+        lastName: "Smith",
+        email: "john.smith@telerik.com" },
+        { firstName: "Jane",
+            lastName: "Smith",
+            email: "jane.smith@telerik.com" },
+        { firstName: "Josh",
+            lastName: "Davis",
+            email: "josh.davis@telerik.com" },
+        { firstName: "Cindy",
+            lastName: "Jones",
+            email: "cindy.jones@telerik.com" } ];
+
+    var g = $("#empty-grid").kendoGrid({
+        columns: [ { title: "First Name", field: "firstName", width: 200, locked: true},
+            { title: "Last Name", field: "lastName", width: 200},
+            { title: "Email", field: "email", width: 200 } ],
+        dataSource: people,
+        height: 100,
+        sortable: true,
+        resizable: true,
+        filterable: true,
+        columnMenu: true
+    });
+
+    var grid = $("#empty-grid").data("kendoGrid");
+    console.log(g.data("kendoGrid") === grid);
+
+    $("#save").click(function (e) {
+        e.preventDefault();
+        var left = $('.k-grid-content-locked', g);
+        var right = $('.k-grid-content', g);
+
+        var scrollPos = {
+            left: {
+                left: left.scrollLeft(),
+                top: left.scrollTop()
+            },
+            right: {
+                left: right.scrollLeft(),
+                top: right.scrollTop()
+            }
+
+        };
+        localStorage["kendo-grid-options"] = kendo.stringify(grid.getOptions());
+        localStorage["kendo-grid-scrollpos"] = JSON.stringify(scrollPos);
+    });
+
+    $("#load").click(function (e) {
+        e.preventDefault();
+        var options = localStorage["kendo-grid-options"];
+        if (options) {
+            grid.setOptions(JSON.parse(options));
+        }
+        if (localStorage["kendo-grid-scrollpos"]) {
+            var left = $('.k-grid-content-locked', g);
+            var right = $('.k-grid-content', g);
+            var scrollPos = JSON.parse(localStorage["kendo-grid-scrollpos"]);
+            left.scrollLeft(scrollPos.left.left);
+            left.scrollTop(scrollPos.right.top);
+            right.scrollLeft(scrollPos.right.left);
+            right.scrollTop(scrollPos.right.top);
+        }
+    });
+    $("#grid").kendoGrid(
+        {
+            scrollable: true,
+            // other configuration
+        }
+    );
+</script>
+<!--<kendo-grid>-->
+    <!--<table>-->
+        <!--<colgroup>-->
+            <!--<col style="width:100px" />-->
+            <!--<col style="width:200px" />-->
+            <!--<col />-->
+        <!--</colgroup>-->
+        <!--<thead>-->
+        <!--<tr>-->
+            <!--<th data-field="firstName">First Name</th>-->
+            <!--<th data-field="lastName">Last Name</th>-->
+            <!--<th data-field="email" data-template="<a href='mailto:#= email #'>#= email #</a>">Email</th>-->
+        <!--</tr>-->
+        <!--</thead>-->
+        <!--<tbody>-->
+        <!--<tr>-->
+            <!--<td>Nancy</td>-->
+            <!--<td>Davolio</td>-->
+            <!--<td>email@domain.com</td>-->
+        <!--</tr>-->
+        <!--</tbody>-->
+    <!--</table>-->
+
+<!--</kendo-grid>-->
+<!--<div style="border: 1px solid green">-->
+    <!--<h1>Fixed Column</h1>-->
+    <!--<div id="fixed-column"></div>-->
+<!--</div>-->
+
+<!--<script>-->
+<!--$(function() {-->
+            <!--$("#fixed-column").kendoGrid({-->
+                <!--dataSource: {-->
+                    <!--type: "odata",-->
+                    <!--transport: {-->
+                        <!--read: "//demos.telerik.com/kendo-ui/service/Northwind.svc/Orders"-->
+                    <!--},-->
+                    <!--schema: {-->
+                        <!--model: {-->
+                            <!--fields: {-->
+                                <!--OrderID: { type: "number" },-->
+                                <!--ShipCountry: { type: "string" },-->
+                                <!--ShipName: { type: "string" },-->
+                                <!--ShipCity: { type: "string" },-->
+                                <!--ShipAddress: { type: "string" }-->
+                            <!--}-->
+                        <!--}-->
+                    <!--},-->
+                    <!--pageSize: 30-->
+                <!--},-->
+                <!--height: 540,-->
+                <!--sortable: true,-->
+                <!--reorderable: true,-->
+                <!--groupable: true,-->
+                <!--resizable: true,-->
+                <!--filterable: true,-->
+                <!--columnMenu: true,-->
+                <!--pageable: true,-->
+                <!--columns: [ {-->
+                        <!--field: "OrderID",-->
+                        <!--title: "Order ID",-->
+                        <!--locked: true,-->
+                        <!--lockable: false,-->
+                        <!--width: 150-->
+                    <!--}, {-->
+                        <!--field: "ShipCountry",-->
+                        <!--title: "Ship Country",-->
+                        <!--width: 300-->
+                    <!--}, {-->
+                        <!--field: "ShipCity",-->
+                        <!--title: "Ship City",-->
+                        <!--width: 300-->
+                    <!--},{-->
+                        <!--field: "ShipName",-->
+                        <!--title: "Ship Name",-->
+                        <!--locked: true,-->
+                        <!--width: 300-->
+                    <!--},  {-->
+                        <!--field: "ShipAddress",-->
+                        <!--lockable: false,-->
+                        <!--width: 400-->
+                    <!--}-->
+                <!--]-->
+            <!--});-->
+        <!--});-->
+<!--</script>-->
+<div style="border: 1px solid green">
+    <h1>Web Component</h1>
+    <kendo-grid columns='[ { title: "First Name", field: "firstName", width: 200, locked: true},
+    { title: "Last Name", field: "lastName", width: 200},
+    { title: "Email", field: "email", width: 200 } ]'></kendo-grid>
+    <script>
+        $('kendo-grid')[0].setDataSource(people);
+    </script>
+</div>
 </body>
 </html>

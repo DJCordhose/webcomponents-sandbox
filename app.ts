@@ -8,27 +8,54 @@ interface HTMLElement {
     createShadowRoot: any;
 }
 
-const template = `
-        <style>
-        .container {
-            background-color: #FFF;
-            border-radius: 5px;
-            box-shadow: 0 0 5px #dadada;
-            position: relative;
-            min-height: 100px;
-        }        </style>
-        <div class="container">
-        Content goes here:
-            <content></content>
-        </div>
-        <!--<div class="container">-->
-            <!--H1 Content goes here:-->
-            <!--<content select="h1"></content>-->
-        <!--</div>-->
-        <input id="remove" type="button" value="Remove">
-        <input id="hide" type="button" value="Hide">
+//const template = `
+//        <style>
+//        .container {
+//            background-color: #FFF;
+//            border-radius: 5px;
+//            box-shadow: 0 0 5px #dadada;
+//            position: relative;
+//            min-height: 100px;
+//        }        </style>
+//        <div class="container">
+//        Content goes here:
+//            <content></content>
+//        </div>
+//        <!--<div class="container">-->
+//            <!--H1 Content goes here:-->
+//            <!--<content select="h1"></content>-->
+//        <!--</div>-->
+//        <input id="remove" type="button" value="Remove">
+//        <input id="hide" type="button" value="Hide">
+//
+//    `;
+//const template = `
+//        <style>
+//        .container {
+//            background-color: #FFF;
+//            border-radius: 5px;
+//            box-shadow: 0 0 5px #dadada;
+//            position: relative;
+//            min-height: 100px;
+//        }        </style>
+//        <div class="container">
+//            H1 Content goes here:
+//            <!--<slot name="header"></slot>-->
+//            <!--<content select="h1"></content>-->
+//        </div>
+//        <div class="container">
+//        Content goes here:
+//            <!--<slot></slot>-->
+//            <!--<slot name="body"></slot>-->
+//            <content></content>
+//        </div>
+//        <input id="remove" type="button" value="Remove">
+//        <input id="hide" type="button" value="Hide">
+//
+//    `;
 
-    `;
+import template = require('./template.html');
+console.log(template);
 
 class Container extends HTMLElement {
 
@@ -47,7 +74,6 @@ class Container extends HTMLElement {
 
     hide() {
         this.style.display = "none";
-
     }
 
     // Fires when an instance was inserted into the document.

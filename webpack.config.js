@@ -8,7 +8,8 @@ module.exports = {
         loaders: [
             {test: /\.css$/, loader: "style!css"},
             {test: /\.js$/, exclude: /node_modules/, loader: 'babel?presets[]=es2015'},
-            {test: /\.tsx?$/, loader: 'ts-loader'}
+            {test: /\.tsx?$/, loader: 'ts-loader'},
+            { test: /\.html$/, loader: 'html' }
         ]
     },
     // Create Sourcemaps for the bundle

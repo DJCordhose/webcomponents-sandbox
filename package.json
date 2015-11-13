@@ -5,7 +5,8 @@
   },
   "dependencies": {
     "babel": "*",
-    "babel-runtime": "^6.0.14"
+    "babel-runtime": "*",
+    "webcomponents.js": "^0.7.2"
   },
   "devDependencies": {
     "babel-core": "^6.1.2",
@@ -15,10 +16,11 @@
     "css-loader": "*",
     "file-loader": "*",
     "json-loader": "*",
+    "html-loader": "*",
     "react-hot-loader": "*",
     "style-loader": "*",
-    "ts-loader": "^0.7.1",
-    "typescript": "^1.6.2",
+    "ts-loader": "*",
+    "typescript": "*",
     "url-loader": "*",
     "webpack": "*",
     "webpack-dev-server": "*",

@@ -14,7 +14,7 @@
         "suppressImplicitAnyIndexErrors": true,
         "sourceMap": true
     },
-    "files": [
-        "./app.ts"
-    ]
+  "exclude": [
+    "node_modules"
+  ]
 }
