@@ -1,7 +1,9 @@
 {
   "name": "webcomponents-sandbox",
   "scripts": {
-    "webpack": "webpack --watch"
+    "webpack": "webpack",
+    "dist": "webpack -p",
+    "watch": "webpack --watch"
   },
   "dependencies": {
     "babel": "*",
