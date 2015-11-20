@@ -1,2 +1,2 @@
 //import './Container';
-import './App.ts';
+import './app.ts';

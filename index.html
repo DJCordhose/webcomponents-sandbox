@@ -69,7 +69,7 @@
     </tbody>
 </table>
 </div>
-<div style="border: 1px solid blue; width: 400px">
+<div style="border: 1px solid blue; width: 500px">
     <h1>Empty</h1>
     <div id="empty-grid"></div>
     <a href="#" class="k-button" id="save">Save State</a>
@@ -135,7 +135,7 @@
             var right = $('.k-grid-content', g);
             var scrollPos = JSON.parse(localStorage["kendo-grid-scrollpos"]);
             left.scrollLeft(scrollPos.left.left);
-            left.scrollTop(scrollPos.right.top);
+            left.scrollTop(scrollPos.left.top);
             right.scrollLeft(scrollPos.right.left);
             right.scrollTop(scrollPos.right.top);
         }
